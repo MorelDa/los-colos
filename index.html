@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Los Colorado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+        body { background:#030508; color:#fff; font-family:'Outfit',sans-serif; overflow-x:hidden; }
+        .bg { position:fixed; inset:0; background: linear-gradient(to bottom, rgba(3,5,8,0.7), #030508), url('https://media.themoviedb.org/t/p/w300_and_h450_multi_faces_filter(blur)/4HV6Vd3QL9C29SZF4KBJ499bUet.jpg') center/cover; z-index:-1; filter: blur(20px); transform: scale(1.2); }
+        .content { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        h1 { font-size: 3rem; font-weight: 900; margin-bottom: 10px; color: #00f2ff; }
+        .desc { color:rgba(255,255,255,0.7); line-height:1.6; margin-bottom: 40px; max-width: 800px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .ep-card { background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .ep-card:hover { transform: translateY(-5px); border-color: #00f2ff; }
+        .ep-thumb { position: relative; aspect-ratio: 16/9; }
+        .ep-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
+        .ep-card:hover .play-overlay { opacity: 1; }
+        .play-overlay span { font-size: 2rem; color: #00f2ff; }
+        .ep-info { padding: 12px; }
+        .ep-info h3 { font-size: 0.9rem; margin-bottom: 4px; }
+        .ep-info p { font-size: 0.7rem; color: #00f2ff; font-weight: bold; }
+        #player { position: fixed; inset: 0; background: #000; z-index: 100; display: none; flex-direction: column; }
+        #player.active { display: flex; }
+        .p-bar { padding: 15px; background: #111; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+        .btn-c { background: #ff4d4d; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        iframe { flex-grow: 1; border: none; width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="content">
+        <h1>Los Colorado</h1>
+        <p class="desc">El Chapulín Colorado vuelve y ahora tiene familia. Junto a su esposa, sus hijos y la abuela, deberá salvar Ciudad Caótica mientras enfrenta el caos en casa. De cavernícolas a seres intergalácticos, nadie escapará del Chipote Chillón.</p>
+        <div class="grid">
+                <div class="ep-card" onclick="play('Episodio 1','https://vimeos.net/embed-lr6gerevk4vt.html')">
+                    <div class="ep-thumb">
+                        <img src=" https://image.tmdb.org/t/p/original/1IiEMu9MnUbfyRCauLtjFskCAcZ.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 1</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 2','https://goodstream.one/embed-yr2fb7015sch.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s4.goodstream.one/i/01/00079/yr2fb7015sch_x.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 2</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 3','https://vimeos.net/embed-72e54drl151a.html')">
+                    <div class="ep-thumb">
+                        <img src="https://image.tmdb.org/t/p/original/4bOUvpmbzdT8xykjVXpZmvGWFwS.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 3</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 4','https://vimeos.net/embed-r3drntfjz13w.html')">
+                    <div class="ep-thumb">
+                        <img src="https://image.tmdb.org/t/p/original/jwphf8rtNqhgF7AMyuHIPqoWFIU.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 4</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 5','https://vimeos.net/embed-j1ccjpp5g1ai.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s14.vimeos.net/i/02/00007/j1ccjpp5g1ai.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 5</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 6','https://vimeos.net/embed-k7ezprkn0i2y.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s13.vimeos.net/i/03/00008/k7ezprkn0i2y.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 6</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 7','https://vimeos.net/embed-px62mlk35a1b.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s13.vimeos.net/i/03/00008/px62mlk35a1b.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 7</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 8','https://vimeos.net/embed-s6jooue9owzl.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s13.vimeos.net/i/02/00008/s6jooue9owzl.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 8</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 9','https://vimeos.net/embed-bfr1fqgd3gqn.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s13.vimeos.net/i/03/00008/bfr1fqgd3gqn.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 9</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div>
+                <div class="ep-card" onclick="play('Episodio 10','https://vimeos.net/embed-vaxx7rq3tc6y.html')">
+                    <div class="ep-thumb">
+                        <img src="https://s13.vimeos.net/i/03/00008/vaxx7rq3tc6y.jpg" loading="lazy">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <div class="ep-info">
+                        <h3>Episodio 10</h3>
+                        <p>Disponible HD</p>
+                    </div>
+                </div></div>
+    </div>
+    <div id="player">
+        <div class="p-bar"><span id="p-t"></span><button class="btn-c" onclick="closeP()">CERRAR ✕</button></div>
+        <iframe id="ifr" allowfullscreen src=""></iframe>
+    </div>
+    <script>
+        function play(t, u) {
+            document.getElementById('p-t').innerText = t;
+            document.getElementById('ifr').src = u;
+            document.getElementById('player').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeP() {
+            document.getElementById('player').classList.remove('active');
+            document.getElementById('ifr').src = "";
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
